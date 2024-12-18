@@ -5,11 +5,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 
 const app = express();
-app.use(cors({
-    origin: '*', // Allow all origins
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
-}));
-app.options('*', cors());
+app.use(cors());
+
 app.use(express.json());
 dotenv.config();
 
@@ -19,12 +16,7 @@ mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log('Database connected!'))
 .catch(err => console.error('Database connection error:', err));
 
-pp.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://todolistmern-23vt.onrender.com");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+
 app.get("/", async (req, res) => {
     try {
         const data = await TodoList.find();
