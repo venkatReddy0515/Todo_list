@@ -12,9 +12,15 @@ dotenv.config();
 
 const port = process.env.PORT || 4000;
 
-mongoose.connect(process.env.MONGO_URL)
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
 .then(() => console.log('Database connected!'))
 .catch(err => console.error('Database connection error:', err));
+
 
 
 app.get("/", async (req, res) => {
